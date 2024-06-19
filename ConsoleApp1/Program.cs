@@ -1,4 +1,5 @@
 ﻿using Carbunql;
+using Carbunql.Building;
 using Carbunql.TypeSafe;
 
 internal class Program
@@ -30,6 +31,13 @@ internal class Program
         //WITH句に注入
         query.With(() => store);
         Console.WriteLine(query.ToText());
+        Console.WriteLine(";");
+
+        //テンポラリテーブル化
+        Console.WriteLine(query.ToCreateTableQuery("tmp", isTemporary: true).ToText());
+        Console.WriteLine(";");
+        //追加クエリ
+        Console.WriteLine(query.ToInsertQuery("target_table").ToText());
         Console.WriteLine(";");
     }
 
